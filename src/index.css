@@ -1,0 +1,207 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 40% 98%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 168 100% 37.5%; /* Changed to #00BF9F */
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 120 46% 49%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 33 100% 50%; /* Changed to #FF9D00 */
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 168 100% 37.5%; /* Changed to #00BF9F */
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased overflow-x-hidden;
+    scroll-behavior: smooth;
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-primary rounded-full;
+  }
+
+  /* Scroll fade effect for timeline section */
+  .timeline-wrapper {
+    position: relative;
+  }
+
+  /* Glass effect */
+  .glass {
+    @apply bg-white/20 backdrop-blur-lg border border-white/30 shadow-sm;
+  }
+
+  /* Button hover effect */
+  .btn-hover-effect {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-hover-effect::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: -100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: all 0.5s ease;
+  }
+
+  .btn-hover-effect:hover::after {
+    left: 100%;
+  }
+
+  /* Interactive link underline animation */
+  .link-underline {
+    position: relative;
+  }
+
+  .link-underline::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: currentColor;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease;
+  }
+
+  .link-underline:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+
+  /* Card hover effect */
+  .card-hover {
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .card-hover:hover {
+    transform: translateY(-10px);
+  }
+
+  /* Theme section styles */
+  .theme-card {
+    @apply rounded-xl bg-white shadow-lg overflow-hidden transition-all duration-500 
+           ease-bounce-in relative;
+  }
+
+  .theme-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    @apply bg-gradient-to-b from-transparent to-black/30;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .theme-card:hover::before {
+    opacity: 1;
+  }
+
+  /* Preload fonts */
+  @font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+}
+
+@layer components {
+  .section-padding {
+    @apply py-16 md:py-24;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold mb-4 relative inline-block;
+  }
+
+  .section-title::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-3/4 h-1 bg-primary rounded-full;
+  }
+
+  .section-subtitle {
+    @apply text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12;
+  }
+
+  .container-narrow {
+    @apply container max-w-5xl;
+  }
+
+  .timeline-item {
+    @apply relative my-8;
+  }
+
+  .theme-indicator {
+    @apply w-3 h-3 rounded-full mx-1 cursor-pointer transition-all duration-300;
+  }
+
+  .theme-indicator.active {
+    @apply w-6 bg-primary;
+  }
+
+  .theme-indicator:not(.active) {
+    @apply bg-muted-foreground/30;
+  }
+}
